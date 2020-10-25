@@ -30,7 +30,7 @@ class Notes(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(120))
-    content = db.Column(db.String(1024))
+    content = db.Column(db.Text)
     created_at = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow)
     due_date = db.Column(db.DateTime, index=True)
     tags = db.Column(db.String)
