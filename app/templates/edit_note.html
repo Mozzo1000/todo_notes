@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form class="pure-form" action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.title.label }}
+            {{ form.title(size=100, value=note.title) }}
+        </p>
+        <p>
+            {{ form.content(cols="99", rows="20") }}
+        </p>
+        {{ form.submit(class_='pure-button pure-button-primary') }}
+        <button class="pure-button button-error"><a href="/notes">Cancel</a></button>
+    </form>
+    <script>
+        document.getElementById('content').value="{{ note.content }}";
+    </script>
+{% endblock %}
