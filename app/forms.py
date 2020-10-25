@@ -15,3 +15,8 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(), EqualTo('password', message="Passwords don't match")])
     submit = SubmitField('Register')
+
+
+class CreateNoteForm(FlaskForm):
+    note_name = StringField('Note name', validators=[DataRequired()])
+    submit = SubmitField('Create')
