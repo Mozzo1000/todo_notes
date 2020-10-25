@@ -2,14 +2,27 @@ body {
     color: #777;
 }
 
-.pure-img-responsive {
-    max-width: 100%;
-    height: auto;
+.card {
+    padding-top: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: transform .2s; /* Animation */
 }
 
-/*
-Add transition to containers so they can push in and out.
-*/
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card, a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+}
+
+.button-error {
+    color: white;
+    background: rgb(202, 60, 60);
+}
+
+
 #layout,
 #menu,
 .menu-link {
