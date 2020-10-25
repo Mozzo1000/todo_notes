@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, DateField, TextAreaField
 from wtforms.validators import DataRequired, EqualTo
 
 
@@ -20,3 +20,10 @@ class RegisterForm(FlaskForm):
 class CreateNoteForm(FlaskForm):
     note_name = StringField('Note name', validators=[DataRequired()])
     submit = SubmitField('Create')
+
+
+class EditNoteForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content')
+    due_date = DateField('Due date')
+    submit = SubmitField('Save')
