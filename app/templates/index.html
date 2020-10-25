@@ -3,12 +3,12 @@
 {% block content %}
     <h1>Hello world</h1>
     {% if current_user.is_authenticated %}
-        <form action="" method="post" novalidate>
+        <form class="pure-form" action="" method="post" novalidate>
             {{ form.hidden_tag() }}
             <p>
                 {{ form.note_name(size=32) }}
             </p>
-            <p>{{ form.submit() }}</p>
+            <p>{{ form.submit(class_="pure-button pure-button-primary") }}</p>
         </form>
     {% endif %}
     {% with messages = get_flashed_messages() %}
