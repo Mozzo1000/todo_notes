@@ -1,6 +1,7 @@
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+import datetime
 
 
 @login.user_loader
@@ -30,6 +31,6 @@ class Notes(db.Model):
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(120))
     content = db.Column(db.String(1024))
-    created_at = db.Column(db.DateTime, index=True)
+    created_at = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow)
     due_date = db.Column(db.DateTime, index=True)
     tags = db.Column(db.String)
