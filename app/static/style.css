@@ -55,6 +55,10 @@ body {
     line-height: 1.6em;
 }
 
+form {
+    text-align: center;
+}
+
 #menu {
     margin-left: -150px; /* "#menu" width */
     width: 150px;

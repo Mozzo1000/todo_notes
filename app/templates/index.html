@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Hello world</h1>
     {% if current_user.is_authenticated %}
         <form class="pure-form" action="" method="post" novalidate>
+            <h1>Create note</h1>
             {{ form.hidden_tag() }}
             <p>
                 {{ form.note_name(size=32) }}
             </p>
             <p>{{ form.submit(class_="pure-button pure-button-primary") }}</p>
         </form>
+    {% else %}
+        <h1>Welcome! </h1>
+        <p>Please login to continue.</p>
     {% endif %}
     {% with messages = get_flashed_messages() %}
         {% if messages %}
