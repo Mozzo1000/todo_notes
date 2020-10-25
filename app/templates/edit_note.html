@@ -14,6 +14,7 @@
         <button class="pure-button button-error"><a href="/notes">Cancel</a></button>
     </form>
     <script>
-        document.getElementById('content').value="{{ note.content }}";
+        const text = `{{ note.content }}`
+        document.getElementById('content').value=text;
     </script>
 {% endblock %}
