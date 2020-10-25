@@ -27,3 +27,7 @@ class EditNoteForm(FlaskForm):
     content = TextAreaField('Content')
     due_date = DateField('Due date')
     submit = SubmitField('Save')
+
+
+class DeleteNoteForm(FlaskForm):
+    submit = SubmitField('Delete')

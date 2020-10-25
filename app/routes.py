@@ -1,6 +1,6 @@
 from app import app, db
 from app.models import User, Notes
-from app.forms import LoginForm, RegisterForm, CreateNoteForm, EditNoteForm
+from app.forms import LoginForm, RegisterForm, CreateNoteForm, EditNoteForm, DeleteNoteForm
 from flask import render_template, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user
 
@@ -58,10 +58,15 @@ def notes():
     return render_template('notes.html', title="Notes", notes=notes)
 
 
-@app.route('/notes/<id>', methods=['GET'])
+@app.route('/notes/<id>', methods=['GET', 'POST'])
 def note(id):
+    form = DeleteNoteForm()
     get_note = Notes.query.filter_by(owner_id=current_user.get_id(), id=id).first()
-    return render_template('note.html', title="Note", note=get_note)
+    if form.validate_on_submit():
+        db.session.delete(get_note)
+        db.session.commit()
+        return redirect(url_for('notes'))
+    return render_template('note.html', title="Note", note=get_note, form=form)
 
 
 @app.route('/edit/notes/<id>', methods=['GET', 'POST'])
