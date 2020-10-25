@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul>
+        {% for note in notes %}
+            <a href="/notes/{{ note.id }}">
+                <div class="card">
+                    <h2>{{ note.title }}</h2>
+                    <hr/>
+                    <p>{{ note.content }}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </ul>
+{% endblock %}

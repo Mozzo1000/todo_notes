@@ -50,3 +50,16 @@ def register():
         flash('Register complete, please login')
         return redirect(url_for('login'))
     return render_template('register.html', form=form)
+
+
+@app.route('/notes', methods=['GET'])
+def notes():
+    notes = Notes.query.filter_by(owner_id=current_user.get_id()).all()
+    return render_template('notes.html', title="Notes", notes=notes)
+
+
+@app.route('/notes/<id>', methods=['GET'])
+def note(id):
+    get_note = Notes.query.filter_by(owner_id=current_user.get_id(), id=id).first()
+    return render_template('note.html', title="Note", note=get_note)
+
