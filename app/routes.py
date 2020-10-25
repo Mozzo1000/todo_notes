@@ -1,13 +1,19 @@
 from app import app, db
-from app.models import User
-from app.forms import LoginForm, RegisterForm
+from app.models import User, Notes
+from app.forms import LoginForm, RegisterForm, CreateNoteForm
 from flask import render_template, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html', title='Home')
+    form = CreateNoteForm()
+    if form.validate_on_submit():
+        note = Notes(owner_id=current_user.get_id(), title=form.note_name.data)
+        db.session.add(note)
+        db.session.commit()
+        flash('Note created!')
+    return render_template('index.html', title='Home', form=form)
 
 
 @app.route('/login', methods=['GET', 'POST'])
