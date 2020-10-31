@@ -11,6 +11,8 @@
                             <option value="/notes?sort=new">Newest first<option>
                             <option value="/notes?sort=old">Oldest first<option>
                         </select></p>
+                        <label for="show-full" class="pure-checkbox">
+                        <input type="checkbox" id="show-full" onclick="change_list();" /> Show full list</label>
                     </form>
                 {% elif individual_note %}
                     <h2>Options</h2>
@@ -51,4 +53,24 @@
             </div>
         {% endif %}
     </div>
+
+    <script>
+        var url = new URL(window.location.href);
+        if (url.searchParams.get('list') == 'full') {
+            document.getElementById('show-full').checked = true;
+        } else {
+            document.getElementById('show-full').checked = false;
+        }
+        function change_list() {
+            if (document.getElementById('show-full').checked) {
+                url.searchParams.set('list', 'full');
+                window.location.href = url;
+            } else {
+                url.searchParams.set('list', 'basic');
+                window.location.href = url;
+                document.getElementById('show-full').checked = false
+            }
+        }
+    </script>
+
 {% endblock %}

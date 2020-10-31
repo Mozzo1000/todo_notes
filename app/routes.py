@@ -56,21 +56,32 @@ def register():
 def notes():
     page = request.args.get('page', 1, type=int)
     sort = request.args.get('sort', 'new', type=str)
+    list = request.args.get('list', 'basic', type=str)
 
     if sort == 'new':
-        notes = Notes.query.order_by(Notes.created_at.desc()).paginate(
-            page, app.config['NOTES_PER_PAGE'], False)
+        if list == 'full':
+            notes = Notes.query.order_by(Notes.created_at.desc()).all()
+        else:
+            notes = Notes.query.order_by(Notes.created_at.desc()).paginate(
+                page, app.config['NOTES_PER_PAGE'], False)
     elif sort == 'old':
-        notes = Notes.query.order_by(Notes.created_at.asc()).paginate(
-            page, app.config['NOTES_PER_PAGE'], False)
-
-    next_url = url_for('notes', page=notes.next_num) \
-        if notes.has_next else None
-    prev_url = url_for('notes', page=notes.prev_num) \
-        if notes.has_prev else None
-
+        if list == 'full':
+            notes = Notes.query.order_by(Notes.created_at.asc()).all()
+        else:
+            notes = Notes.query.order_by(Notes.created_at.asc()).paginate(
+                page, app.config['NOTES_PER_PAGE'], False)
+    if list != 'full':
+        next_url = url_for('notes', page=notes.next_num) \
+            if notes.has_next else None
+        prev_url = url_for('notes', page=notes.prev_num) \
+            if notes.has_prev else None
+        bypass_notes = notes.items
+    else:
+        bypass_notes = notes
+        next_url = None
+        prev_url = None
     return render_template('notes.html', title="Notes",
-                           notes=notes.items, next_url=next_url, prev_url=prev_url,
+                           notes=bypass_notes, next_url=next_url, prev_url=prev_url,
                            request=request)
 
 
