@@ -4,6 +4,11 @@ html, body {
 }
 
 .card {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    margin: auto;
+    border-radius: 25px;
     padding-top: 10px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: transform .2s; /* Animation */
@@ -21,6 +26,34 @@ html, body {
 .button-error {
     color: white;
     background: rgb(202, 60, 60);
+}
+
+.alert {
+    padding: 20px;
+    background: rgb(28, 184, 65);
+    color: white;
+    margin-bottom: 15px;
+    width: 25%;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    animation-name: alert;
+    animation-duration: 2s;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
 }
 
 
@@ -190,6 +223,11 @@ div.main-view {
             margin-top: 0.6em;
         }
 
+
+@keyframes alert {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
 
 @media (min-width: 48em) {
 
