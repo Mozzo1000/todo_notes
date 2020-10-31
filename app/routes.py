@@ -1,7 +1,7 @@
 from app import app, db
 from app.models import User, Notes
 from app.forms import LoginForm, RegisterForm, CreateNoteForm, EditNoteForm, DeleteNoteForm
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_user, logout_user
 
 
@@ -54,8 +54,24 @@ def register():
 
 @app.route('/notes', methods=['GET'])
 def notes():
-    notes = Notes.query.filter_by(owner_id=current_user.get_id()).all()
-    return render_template('notes.html', title="Notes", notes=notes)
+    page = request.args.get('page', 1, type=int)
+    sort = request.args.get('sort', 'new', type=str)
+
+    if sort == 'new':
+        notes = Notes.query.order_by(Notes.created_at.desc()).paginate(
+            page, app.config['NOTES_PER_PAGE'], False)
+    elif sort == 'old':
+        notes = Notes.query.order_by(Notes.created_at.asc()).paginate(
+            page, app.config['NOTES_PER_PAGE'], False)
+
+    next_url = url_for('notes', page=notes.next_num) \
+        if notes.has_next else None
+    prev_url = url_for('notes', page=notes.prev_num) \
+        if notes.has_prev else None
+
+    return render_template('notes.html', title="Notes",
+                           notes=notes.items, next_url=next_url, prev_url=prev_url,
+                           request=request)
 
 
 @app.route('/notes/<id>', methods=['GET', 'POST'])

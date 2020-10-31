@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <p>Sort: <select onchange ="if (this.value)window.location.href=this.value">
+        <option value="/notes?sort=new">Newest first<option>
+        <option value="/notes?sort=old">Oldest first<option>
+    </select></p>
     <ul>
         {% for note in notes %}
             <a href="/notes/{{ note.id }}">
@@ -12,4 +16,10 @@
             </a>
         {% endfor %}
     </ul>
+    {% if prev_url %}
+        <a href="{{prev_url }}">Next</a>
+    {% endif %}
+    {% if next_url %}
+        <a href="{{next_url }}">Previous</a>
+    {% endif %}
 {% endblock %}
