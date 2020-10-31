@@ -23,7 +23,7 @@
                     <ul>
                         {% for note in notes %}
                             <a href="/notes/{{ note.id }}">
-                                <h3>{{ note.title }}</h3>
+                                <h3 class="oi" data-glyph="file"> {{ note.title }}</h3>
                             </a>
                         {% endfor %}
                     </ul>
