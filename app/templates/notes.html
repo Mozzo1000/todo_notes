@@ -1,25 +1,54 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>Sort: <select onchange ="if (this.value)window.location.href=this.value">
-        <option value="/notes?sort=new">Newest first<option>
-        <option value="/notes?sort=old">Oldest first<option>
-    </select></p>
-    <ul>
-        {% for note in notes %}
-            <a href="/notes/{{ note.id }}">
-                <div class="card">
-                    <h2>{{ note.title }}</h2>
-                    <hr/>
-                    <p>{{ note.content }}</p>
-                </div>
-            </a>
-        {% endfor %}
-    </ul>
-    {% if prev_url %}
-        <a href="{{prev_url }}">Next</a>
-    {% endif %}
-    {% if next_url %}
-        <a href="{{next_url }}">Previous</a>
-    {% endif %}
+    <div class="main-wrapper">
+        <div class="sidebar-container">
+            <div class="sidebar-header">
+                {% if notes %}
+                    <h2>Tasks</h2>
+                    <form class="pure-form">
+                        <p>Sort: <select onchange ="if (this.value)window.location.href=this.value">
+                            <option value="/notes?sort=new">Newest first<option>
+                            <option value="/notes?sort=old">Oldest first<option>
+                        </select></p>
+                    </form>
+                {% elif individual_note %}
+                    <h2>Options</h2>
+                {% endif %}
+            </div>
+            <div class="sidebar">
+                {% if notes %}
+                    <ul>
+                        {% for note in notes %}
+                            <a href="/notes/{{ note.id }}">
+                                <h3>{{ note.title }}</h3>
+                            </a>
+                        {% endfor %}
+                    </ul>
+                    {% if prev_url %}
+                        <a href="{{prev_url }}">Next</a>
+                    {% endif %}
+                    {% if next_url %}
+                        <a href="{{next_url }}">Previous</a>
+                    {% endif %}
+                {% elif individual_note %}
+                    <form style="text-align: left;" class="pure-form" action="" method="post" novalidate>
+                        {{ form.hidden_tag() }}
+                        <a href="/edit/notes/{{individual_note.id}}" class="pure-button pure-button-primary">Edit</a>
+                        {{ form.submit(class_="pure-button button-error") }}
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="main-view">
+        {% if individual_note %}
+            <h1>{{ individual_note.title }}</h1>
+            <span style="white-space: pre-wrap">{{ individual_note.content }}</span>
+        {% else %}
+            <div style="text-align: center; margin: auto;">
+                <h2>Select a task to view it</h2>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

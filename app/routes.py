@@ -82,7 +82,7 @@ def note(id):
         db.session.delete(get_note)
         db.session.commit()
         return redirect(url_for('notes'))
-    return render_template('note.html', title="Note", note=get_note, form=form)
+    return render_template('notes.html', title="Note", individual_note=get_note, form=form)
 
 
 @app.route('/edit/notes/<id>', methods=['GET', 'POST'])
