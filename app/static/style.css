@@ -71,6 +71,7 @@ form {
     height: 85%;
     position: relative;
     overflow-y: scroll;
+    margin-left: -25px;
 }
 
 div.main-view {
