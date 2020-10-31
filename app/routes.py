@@ -2,7 +2,7 @@ from app import app, db
 from app.models import User, Notes
 from app.forms import LoginForm, RegisterForm, CreateNoteForm, EditNoteForm, DeleteNoteForm
 from flask import render_template, redirect, url_for, flash, request
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -32,6 +32,7 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for('index'))
@@ -53,6 +54,7 @@ def register():
 
 
 @app.route('/notes', methods=['GET'])
+@login_required
 def notes():
     page = request.args.get('page', 1, type=int)
     sort = request.args.get('sort', 'new', type=str)
@@ -86,6 +88,7 @@ def notes():
 
 
 @app.route('/notes/<id>', methods=['GET', 'POST'])
+@login_required
 def note(id):
     form = DeleteNoteForm()
     get_note = Notes.query.filter_by(owner_id=current_user.get_id(), id=id).first()
@@ -97,6 +100,7 @@ def note(id):
 
 
 @app.route('/edit/notes/<id>', methods=['GET', 'POST'])
+@login_required
 def edit_note(id):
     get_note = Notes.query.filter_by(owner_id=current_user.get_id(), id=id).first()
 
