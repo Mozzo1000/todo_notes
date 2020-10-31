@@ -39,6 +39,13 @@
                         <a href="/edit/notes/{{individual_note.id}}" class="pure-button pure-button-primary">Edit</a>
                         {{ form.submit(class_="pure-button button-error") }}
                     </form>
+                    <p>Task is due:<br>
+                        {% if individual_note.due_date == None %}
+                            Not set
+                        {% else %}
+                            {{ individual_note.due_date }}
+                        {% endif %}
+                    </p>
                 {% endif %}
             </div>
         </div>
