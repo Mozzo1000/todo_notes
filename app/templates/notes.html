@@ -20,7 +20,7 @@
             </div>
             <div class="sidebar">
                 {% if notes %}
-                    <ul>
+                    <ul style="margin-left: -25px">
                         {% for note in notes %}
                             <a href="/notes/{{ note.id }}">
                                 <h3 class="oi" data-glyph="file"> {{ note.title }}</h3>
