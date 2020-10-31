@@ -26,10 +26,10 @@
                         {% endfor %}
                     </ul>
                     {% if prev_url %}
-                        <a href="{{prev_url }}">Next</a>
+                        <a href="{{prev_url }}">Previous</a>
                     {% endif %}
                     {% if next_url %}
-                        <a href="{{next_url }}">Previous</a>
+                        <a style="float: right;" href="{{next_url }}">Next</a>
                     {% endif %}
                 {% elif individual_note %}
                     <form style="text-align: left;" class="pure-form" action="" method="post" novalidate>
