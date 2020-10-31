@@ -88,10 +88,14 @@ def note(id):
 @app.route('/edit/notes/<id>', methods=['GET', 'POST'])
 def edit_note(id):
     get_note = Notes.query.filter_by(owner_id=current_user.get_id(), id=id).first()
+
+    html_due_date = str(get_note.due_date).split(' ')
+
     form = EditNoteForm()
     if form.validate_on_submit():
         get_note.title = form.title.data
         get_note.content = form.content.data
+        get_note.due_date = form.due_date.data
         db.session.commit()
         return redirect(url_for('notes'))
-    return render_template('edit_note.html', title="Edit", note=get_note, form=form)
+    return render_template('edit_note.html', title="Edit", note=get_note, form=form, html_due_date=html_due_date[0])

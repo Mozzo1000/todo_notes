@@ -10,6 +10,10 @@
         <p>
             {{ form.content(cols="99", rows="20") }}
         </p>
+        <p>
+            {{ form.due_date.label }}
+            {{ form.due_date(type='date', value=html_due_date) }}
+        </p>
         {{ form.submit(class_='pure-button pure-button-primary') }}
         <button class="pure-button button-error"><a href="/notes">Cancel</a></button>
     </form>
