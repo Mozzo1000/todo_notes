@@ -56,7 +56,11 @@
             <span style="white-space: pre-wrap">{{ individual_note.content }}</span>
         {% else %}
             <div style="text-align: center; margin: auto;">
-                <h2>Select a task to view it</h2>
+                {% if notes %}
+                    <h2>Select a task to view it</h2>
+                {% else %}
+                    <h2>You do not seem to have any tasks.<br>Added tasks are shown here</h2>
+                {% endif %}
             </div>
         {% endif %}
     </div>
