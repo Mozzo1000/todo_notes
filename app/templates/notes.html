@@ -13,6 +13,7 @@
                         </select></p>
                         <label for="show-full" class="pure-checkbox">
                         <input type="checkbox" id="show-full" onclick="change_list();" /> Show full list</label>
+                        <input type="text" id="search" onkeyup="search_list();" placeholder="Search..">
                     </form>
                 {% elif individual_note %}
                     <h2>Options</h2>
@@ -20,11 +21,11 @@
             </div>
             <div class="sidebar">
                 {% if notes %}
-                    <ul style="margin-left: -25px">
+                    <ul id="note-list" style="margin-left: -25px">
                         {% for note in notes %}
-                            <a href="/notes/{{ note.id }}">
+                            <li style="list-style:none;"><a href="/notes/{{ note.id }}">
                                 <h3 class="oi" data-glyph="file"> {{ note.title }}</h3>
-                            </a>
+                            </a></li>
                         {% endfor %}
                     </ul>
                     {% if prev_url %}
@@ -80,6 +81,24 @@
                 url.searchParams.set('list', 'basic');
                 window.location.href = url;
                 document.getElementById('show-full').checked = false
+            }
+        }
+
+        function search_list() {
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('search');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById('note-list');
+            li = ul.getElementsByTagName('li');
+
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName('a')[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = '';
+                } else {
+                    li[i].style.display = 'none';
+                }
             }
         }
     </script>
